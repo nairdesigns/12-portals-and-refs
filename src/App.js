@@ -1,5 +1,8 @@
-import { render } from "react-dom";
 import { StrictMode, useState, lazy, Suspense } from "react";
+
+// brwowser router only happens in the doms
+// import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ThemeContext from "./ThemeContext";
 const Details = lazy(() => import("./Details"));
@@ -11,19 +14,17 @@ const App = () => {
     <StrictMode>
       <Suspense fallback={<h2>loading, be patient</h2>}>
         <ThemeContext.Provider value={theme}>
-          <BrowserRouter>
-            <header>
-              <Link to="/">Adopt Me!</Link>
-            </header>
-            <Routes>
-              <Route path="/details/:id" element={<Details />} />
-              <Route path="/" element={<SearchParams />} />
-            </Routes>
-          </BrowserRouter>
+          <header>
+            <Link to="/">Adopt Me!</Link>
+          </header>
+          <Routes>
+            <Route path="/details/:id" element={<Details />} />
+            <Route path="/" element={<SearchParams />} />
+          </Routes>
         </ThemeContext.Provider>
       </Suspense>
     </StrictMode>
   );
 };
 
-render(<App />, document.getElementById("root"));
+export default App;
